@@ -3,14 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# ローカル上でフロントからフェッチする場合、CORSの設定が必要
-# TODO：APIをサーバーに乗せた際に、必要なければ削除する
+origins = [
+    "http://localhost:5173/"
+    ]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=origins,
+    allow_credentials=True,  # クッキーや認証情報を含むリクエストを許可
+    allow_methods=["*"],  # すべてのHTTP標準メソッド（GETやPOSTなど）を許可する。デフォルトはGETのみ
+    allow_headers=["*"],  # CookieやContent-TypeなどのすべてのHTTPヘッダーを許可する。デフォルトは空
 )
 
 
